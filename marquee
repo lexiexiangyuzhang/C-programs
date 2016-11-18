@@ -1,0 +1,45 @@
+#include <iostream>
+#include <stdlib.h>
+using namespace std;
+
+int main () {
+	char chara[15]= "!ECE150!";
+	
+	int a;
+	cin >>a;
+	for (int b=1;b<=a; b++){
+		for (int i=0;i<61;i++){
+			char location[90] = "                                                                              ";
+		for (int j=0; j<60;j++)
+			cout<< "=";
+		cout <<endl;
+		if (i<53) {
+			location[i]=chara[0];
+			location[i+1]=chara[1];
+			location[i+2]=chara[2];
+			location[i+3]=chara[3];
+			location[i+4]=chara[4];
+			location[i+5]=chara[5];
+			location[i+6]=chara[6];
+			location[i+7]=chara[7];
+	    }
+	    //before 53
+	    else {
+	    	for (int p=0;p<8;p++){
+	    		int s;
+             if (i+p>=60)
+             	s=i+p-60;
+             else s=i+p;
+			  location[s]=chara[p];}}
+
+	    for (int k=0;k<60;k++)
+		    cout<<location[k];
+		cout<< endl;
+		for (int q=0; q<60; q++)
+			cout<< "=";
+		cout << endl;
+		system("clear");
+
+		}
+}
+	}
