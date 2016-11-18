@@ -1,0 +1,193 @@
+#include <iostream>
+using namespace std;
+
+int stringCmp(char str1[], char str2[]);
+
+void bubbleSort(int numNames, char* firstName[],   char* lastName[], int age[]){
+	
+	int u = stringCmp("aa","aaa");
+	int n = numNames;
+	
+	//sort by age first
+	bool swapped = true;
+    int j = 0;
+    while (swapped) {
+            swapped = false;
+            j++;
+            for (int i = 0; i < n - j; i++) {
+                  if (age[i] > age[i + 1]) {
+                        stringSwap(firstName[i],firstName[i+1]);
+						stringSwap(lastName[i],lastName[i+1]);
+						//intSwap(age[i],age[i+1]);
+						int x = age[i];
+                    	age[i] = age[i+1];
+                    	age[i+1] = x;
+                        swapped = true;
+                  }
+            }
+    }
+	
+	//sort by first name
+	for (int i=0; i<n-1; i++)
+	{
+		for (int k=0; k<n-i-1; k++)
+		{
+			if (*(&*firstName[k]+2)>*(&*firstName[k+1]+2))
+			{
+    				stringSwap(firstName[k],firstName[k+1]);
+						stringSwap(lastName[k],lastName[k+1]);
+						//intSwap(age[k],age[k+1]);
+						int x = age[k];
+                    	age[k] = age[k+1];
+                    	age[k+1] = x;
+			}
+		}
+	}
+	
+	for (int i=0; i<n-1; i++)
+	{
+		for (int k=0; k<n-i-1; k++)
+		{
+			if (*(&*firstName[k]+1)>*(&*firstName[k+1]+1))
+			{
+    				stringSwap(firstName[k],firstName[k+1]);
+						stringSwap(lastName[k],lastName[k+1]);
+						//intSwap(age[k],age[k+1]);
+						int x = age[k];
+                    	age[k] = age[k+1];
+                    	age[k+1] = x;
+			}
+		}
+	}
+	
+	for (int i=0; i<n-1; i++)
+	{
+		for (int k=0; k<n-i-1; k++)
+		{
+			if (*firstName[k]>*firstName[k+1])
+			{
+    				stringSwap(firstName[k],firstName[k+1]);
+						stringSwap(lastName[k],lastName[k+1]);
+						//intSwap(age[k],age[k+1]);
+						int x = age[k];
+                    	age[k] = age[k+1];
+                    	age[k+1] = x;
+			}
+		}
+	}
+	
+	
+	
+	//sort by last name
+	for (int i=0; i<n-1; i++)
+	{
+		for (int k=0; k<n-i-1; k++)
+		{
+			if (*(&*lastName[k]+2)>*(&*lastName[k+1]+2))
+			{
+    				stringSwap(firstName[k],firstName[k+1]);
+						stringSwap(lastName[k],lastName[k+1]);
+						//intSwap(age[k],age[k+1]);
+						int x = age[k];
+                    	age[k] = age[k+1];
+                    	age[k+1] = x;
+			}
+		}
+	}
+	
+	for (int i=0; i<n-1; i++)
+	{
+		for (int k=0; k<n-i-1; k++)
+		{
+			if (*(&*lastName[k]+1)>*(&*lastName[k+1]+1))
+			{
+    				stringSwap(firstName[k],firstName[k+1]);
+						stringSwap(lastName[k],lastName[k+1]);
+						//intSwap(age[k],age[k+1]);
+						int x = age[k];
+                    	age[k] = age[k+1];
+                    	age[k+1] = x;
+			}
+		}
+	}
+	
+	for (int i=0; i<n-1; i++)
+	{
+		for (int k=0; k<n-i-1; k++)
+		{
+			if (*lastName[k]>*lastName[k+1])
+			{
+    				stringSwap(firstName[k],firstName[k+1]);
+						stringSwap(lastName[k],lastName[k+1]);
+						//intSwap(age[k],age[k+1]);
+						int x = age[k];
+                    	age[k] = age[k+1];
+                    	age[k+1] = x;
+			}
+		}
+	}
+}
+void displayNames(int numNames, char* firstName[], char* lastName[], int age[]){
+	for(int x = 0; x<numNames; x++){
+		cout<<firstName[x]<< " " << lastName[x] << " " << age[x] << endl;
+	}
+}
+
+
+int stringCmp(char str1[], char str2[]){
+    
+	int size1;
+	int size2;
+	for(int i=0 ; str1[i]!='\0' ; i++)
+	{
+		size1++;
+	}
+	for(int i=0 ; str2[i]!='\0' ; i++)
+	{
+		size2++;
+	}
+
+	if(size1 == size2){
+	    bool identical = true;
+	    for(int x = 0; x < size1; x++){
+		    if(str1[x] != str2[x]){
+			    identical = false;
+		    }
+		}
+		if(identical){
+		    return 0;
+		}
+	}
+	int least;
+	if(size1>size2){
+		least = size2;
+	}
+	else{
+		least = size1;
+	}
+	bool same = true;
+	for(int x = 0; x < least; x++){
+		if(str1[x] != str2[x]){
+			same = false;
+		}
+	}
+	if (same && least == size1){
+	    //cout << str1 << " and " << str2 << " are part same"<<endl;
+	    return 1;
+	    }
+	if (str1[0]>str2[0]){
+	   return-1;
+	}
+	if (str1[1]>str2[1]){
+	   return-1;
+	}
+	if (str1[2]>str2[2]){
+	   return-1;
+	}
+}
+
+void stringSwap(char* &str1, char* &str2){
+	char* temp = str1;
+	str1 = str2;
+	str2 = temp;
+}
