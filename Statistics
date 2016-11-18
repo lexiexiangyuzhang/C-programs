@@ -1,0 +1,136 @@
+#include <iostream>
+#include <climits>
+using namespace std;
+int strToInt(char* str){
+	// Define variables to store the number to be converted, the current digit position, and the char value of the current digit  
+	unsigned int number = 0;
+	unsigned int maxValue = INT_MAX;
+	unsigned int currDigit = 0;
+	char currDigitStr = str[0];
+
+	// 1. Check if there is a minus sign at the front
+	//    If yes, move to the next digit position
+	bool Sign = (currDigitStr == '-'||currDigitStr=='+');
+	bool minusSign = (currDigitStr == '-');
+	if (Sign){
+		currDigit = 1;
+		currDigitStr = str[1];
+		maxValue = maxValue+1;
+	}
+		
+	// 2. Calculate the number on a digit-by-digit basis using base-10 arithmetic
+	//	  Repeat the process until end of text string is reached
+	while (currDigitStr != '\0'){
+		
+		// A. If the current digit string is not between 0 to 9, something is wrong
+		//    In this case, simply return INT_MIN as the return value
+		if (currDigitStr < '0' || currDigitStr > '9'){
+			cerr << "Error in integer string conversion" << endl;
+			return 0;
+		}
+		
+		// B. Update the number via: 
+		//		(1) multiplying current value by 10
+		//		(2) Add the value of the current digit 
+		//				(found by subtracting the ASCII value of 0 from the current digit's ASCII value)
+
+		// Note: Premature function end if the number is going to be larger than the limits of int variables
+		if ( number > maxValue/10 ){
+			cerr << "Error: Numerical value of text string is beyond limits of int variables" << endl;
+			return INT_MIN;
+		}
+		else
+			number *= 10;
+
+		unsigned int currDigitIntValue = currDigitStr - '0';
+		if ( currDigitIntValue > maxValue-number ){
+			cerr << "Error: Numerical value of text string is beyond limits of int variables" << endl;
+			return INT_MIN;
+		}
+		else
+			number += currDigitIntValue;
+		
+		// C. Move to the next digit and update the digit's char value accordingly 
+		currDigit++;
+		currDigitStr = str[currDigit];
+	}
+	
+	// 3. If there is a minus sign, return the negated value of the number; 
+	//	  otherwise, just return the number value
+
+	return minusSign? (-number) : number;
+}
+
+int convertToIntArray (int argc, char* argv[], int array[]) {
+		
+	if (argc > 21)
+        return -21;
+   
+    for (int w=1; w< argc; w++){
+		int y=0;
+		y = strToInt(argv[w]);
+		if (y==0)
+			return -w;
+		else {
+			array[w-1]=y;}
+
+		}
+	return argc-1;
+}
+
+bool findMaxMinAvg(int array[], int numElements, int& max, int& min, float& avg){
+	if (numElements<1){
+		return false;
+	}
+	else {
+	for (int a=0; a<numElements; a++){
+		if(array[a]>max)
+			max=array[a];
+	}
+	min=array[0];
+	for (int b=1; b<numElements; b++){
+		if (array[b]<min)
+			min=array[b];
+	}
+	float total=0;
+     for (int c=0; c<numElements; c++){
+     	total += array[c];
+     }
+    avg = total/numElements;
+    return true;}
+
+
+}
+
+int main(int argc, char* argv[]) {
+	int array[argc-1];
+	int f = convertToIntArray(argc, argv, array);
+
+	for (int d=0; d< argc-1; d++){
+		cout << array[d] <<endl;
+	}
+ 
+	if(f <0){
+		int q = -f;
+		cerr<< "Error: Argument " << q << " is not an integer." <<endl;
+		return -1;
+	}
+
+	if (f ==-21) {
+       cerr << "Error: too many input arguments; maximum 20 permitted." <<endl;
+       return -1;
+	}
+    cout << f <<" ffff" <<endl;
+    int max=0, min=0;
+    float avg = 0;
+    
+    if (findMaxMinAvg(array, f, max, min, avg)){
+    	cout << "Maxmium:" <<max << endl;
+    	cout << "Minimum:" <<min << endl;
+    	cout << "Average:" <<avg << endl;
+    }
+    else cerr <<"Error";
+
+    
+	
+}
